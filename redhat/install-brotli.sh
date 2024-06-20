@@ -1,5 +1,5 @@
 install_brotli () {
-    yum install -y sudo cmake3 wget unzip gcc
+    dnf install -y sudo cmake3 wget unzip gcc
     export PATH=$PATH:/usr/local/bin
     local BORTLI_VERSION="1.1.0"
     wget -q https://github.com/google/brotli/archive/refs/tags/v${BORTLI_VERSION}.zip || exit -1
@@ -17,8 +17,8 @@ install_brotli () {
     cd ../..
     rm -rf brotli-${BORTLI_VERSION}
     rm -rf /v${BORTLI_VERSION}.zip
-    yum remove -y cmake3 wget unzip gcc
+    dnf remove -y cmake3 wget unzip gcc
     rm -rf /usr/bin/sudo
-    yum clean all -y
+    dnf clean all -y
 }
 install_brotli

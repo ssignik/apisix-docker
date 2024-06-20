@@ -15,16 +15,17 @@
 # limitations under the License.
 #
 
-FROM registry.access.redhat.com/ubi8/ubi:8.6
+FROM openeuler/openeuler:22.03
 
-ARG APISIX_VERSION=3.9.0
+ARG APISIX_VERSION=3.9.1
 LABEL apisix_version="${APISIX_VERSION}"
-COPY ./yum.repos.d/apache-apisix.repo /etc/yum.repos.d/apache-apisix.repo
+COPY ./apisix-3.9.1-0.el7.x86_64.rpm /tmp/local_repo
 COPY ./yum.repos.d/openresty.repo /etc/yum.repos.d/openresty.repo
 
-RUN yum update -y \
-	&& yum install -y apisix-${APISIX_VERSION} wget\
-	&& yum clean all \
+RUN dnf update -y \
+	&& dnf install -y wget\
+	&& dnf install -y /tmp/local_repo/apisix-3.9.1-0.el7.x86_64.rpm
+	&& dnf clean all -y\
 	&& sed -i 's/PASS_MAX_DAYS\t99999/PASS_MAX_DAYS\t60/g' /etc/login.defs
 
 COPY ./install-brotli.sh /install-brotli.sh
