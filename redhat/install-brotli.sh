@@ -1,5 +1,6 @@
 install_brotli () {
     dnf install -y sudo cmake3 wget unzip gcc
+    dnf install -y make
     export PATH=$PATH:/usr/local/bin
     local BORTLI_VERSION="1.1.0"
     wget -q https://github.com/google/brotli/archive/refs/tags/v${BORTLI_VERSION}.zip || exit -1
@@ -17,7 +18,7 @@ install_brotli () {
     cd ../..
     rm -rf brotli-${BORTLI_VERSION}
     rm -rf /v${BORTLI_VERSION}.zip
-    dnf remove -y cmake3 wget unzip gcc
+    dnf remove -y cmake3 make wget unzip gcc
     rm -rf /usr/bin/sudo
     dnf clean all -y
 }

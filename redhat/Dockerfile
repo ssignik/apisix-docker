@@ -19,12 +19,12 @@ FROM openeuler/openeuler:22.03
 
 ARG APISIX_VERSION=3.9.1
 LABEL apisix_version="${APISIX_VERSION}"
-COPY ./apisix-3.9.1-0.el7.x86_64.rpm /tmp/local_repo
+COPY ./apisix-3.9.1-0.el7.x86_64.rpm /tmp
 COPY ./yum.repos.d/openresty.repo /etc/yum.repos.d/openresty.repo
 
 RUN dnf update -y \
 	&& dnf install -y wget\
-	&& dnf install -y /tmp/local_repo/apisix-3.9.1-0.el7.x86_64.rpm
+	&& dnf install -y /tmp/apisix-3.9.1-0.el7.x86_64.rpm\
 	&& dnf clean all -y\
 	&& sed -i 's/PASS_MAX_DAYS\t99999/PASS_MAX_DAYS\t60/g' /etc/login.defs
 
